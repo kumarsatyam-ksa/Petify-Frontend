@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NavigationBar from "./components/Navbar";
+import Home from "./pages/Home";
+import Pets from "./pages/Pets";
+import CareProducts from "./pages/CareProducts";
+import Footer from "./components/Footer";
 
 function App() {
+  const user = localStorage.getItem("token");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <NavigationBar />
+      <Routes>
+        {user && <Route path="/signup" exact element={<Signup />} />}
+        <Route path="/" exact element={<Signup />} />
+        <Route path="/signup" exact element={<Signup />} />
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/pets" element={<Pets />} />
+        <Route path="/care-products" element={<CareProducts />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
